@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+ 
+ <head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<meta name="author" content="Leslie Schutt" />
+<title>Number Game</title>
+
+	<style>
+	body {width:100%; margin:0px; padding:0px; font-family:'Roboto' sans-serif; font-size:1.3em; color:rgb(130,90,150); }
+	input {font-size:1.2em; }
+	#intro {width:70%; height:auto; margin:0px; margin-left:14%; display:inline-block; font-family:'Roboto', sans-serif; text-align:center; }
+	#intro h1 {font-size:2.0em; margin-bottom:-10px; }
+	#intro h2 {margin-bottom:-5px; line-height:2.15em; }
+	.newgame {float:right; width:75px; height:auto; margin:0px 55px; margin-top:-55px; padding:7px; font-family:'Roboto', sans-serif; font-weight:bold; text-align:center; border:2px solid purple; -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px; box-shadow:2px 2px 2px; }
+    
+	#rules {width:75%; max-width:280px; margin:0px 35px; font-family:'Roboto', sans-serif; font-size:0.94em; }
+	.slideup {float:left; clear:left; margin-left:50px; width:85%; max-width:360px; padding:7px; font-family:'Roboto', sans-serif; font-size:0.75em; color:purple; border:solid 1px darkblue; display:none;/*box-shadow:(3px,4px,4px);*/ }
+	.orange {color:orange; font-weight:bold; }
+	.red {color:red; font-weight:bold; }
+	.tab {width:35px; height:15px;}
+
+	.centerwrap {width:37%; min-width:312px; margin-top:0px; padding:0px; margin-left:37%;}
+	#commBox {max-width:412px; max-height:74px; margin:15px 15px; font-family:'Roboto', sans-serif; }
+ 	#commBox h4 {float:left; vertical-align:bottom;}
+
+	.guessesLeft {float:right; width:190px; margin:0px; padding-right:5px; font-family:'Roboto', sans-serif; font-size:0.8em;font-weight:normal; font-style:italic; font-weight:bold; text-align:center; vertical-align:top; display:none;}
+	#feedback {float:left; width:290px; min-width:312px; height:auto; margin:0px; margin-top:-25px; padding:0px; margin-bottom:18px; padding-left:20px; line-height:1.6em; overflow:auto; display:none; }
+	
+	.winners { background-color:gray; }
+	#winLose { position:absolute; top:30px; left:60px; width:70%; min-width:300px; height:60%; min-height:200px; background-image:url(); background-color:rgb(225,208,238); margin-top:50px; padding-top:50px; padding-left:20px; font-family:comic sans ms; font-size:2.3em; color:purple; text-align:center;display:none;}
+	#winLose h1 {float:right; margin-top:-30px; margin-right:17px; padding:0px 10px; background-color:rgb(200,205,235); font-size:0.7em; line-height:1.0em; border:1px solid purple; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; box-shadow:2px 2px 2px; }
+	.bigger {font-size:1.5em; text-align:center; }
+	.over {background-color:purple; }
+
+	@media only screen and (max-width:480px) {
+	   winLose {top:10px; left:10px; max-width: 320px; max-height:225px; }
+	}
+	</style>
+
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   <script type="text/javascript" src="TheNumberGame3.js"></script>
+</head>
+
+<body>	<!-- The Number Game  is in honor of my Dad, William S. Armstrong  -->
+  <div id="intro" class="">
+	<h1>Welcome to<br />The Number Game!<br /></h1> 
+	<p>- Guess my 4-digit number in 12 guesses or less - </p>
+         <br />
+
+ </div>	<!--  close intro -->
+
+    <div id="rules">RULES of the Game<br />&nbsp; >>
+    </div>
+   
+   <span class="newgame" onclick="newGame()"> Start Game </span>
+
+  <div class="slideup">
+     Here are the basic rules for The Number Game:  
+	<ul>
+		<li>Enter a four-digit number  - No duplicates, and No spaces. <br />
+	  I'll give you 12 guesses... but try to guess my number in 7 guesses or less.<br /><br />  
+      </li>
+		<li>I will tell you how many of your numbers are CORRECT but in the wrong position (picas) and how many are in the RIGHT POSITION (Forms).</li>
+	</ul>
+
+   <u>EXAMPLE:</u> <br />If my number is: &nbsp; &nbsp; &nbsp; &nbsp; <span class="bigger"><span class="orange">1</span><span class="red">2</span>34</span><br /><br />
+   and your guess is:  &nbsp; &nbsp;  &nbsp; &nbsp;  <span class="bigger"><span class="orange">1</span>98<span class="red">2</span></span><br />
+   &nbsp; &nbsp; &nbsp; you have: <span class="orange">1 Form</span>, <span class="red">1 Pica</span>.
+      <br /><br />
+    <b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Have Fun!"</b> 
+    <br>
+   </div>  <!-- close slideup -->
+ 
+ 
+
+ <div class="centerwrap">
+
+		<!-- <div id="feedback"><p><u>Your Score:</u></p></div><span class="guessesLeft">GuessesLeft </span>
+
+	 <p id="feedback"><u>Your Score:</u><div class="tab"></div><span class="guessesLeft">GuessesLeft </span></p>
+    -->
+   <p id="feedback"><u>Your Score: </u></p>
+ 
+   <div id="commBox">
+	   <br /><br /><h4>What is your guess?<span class="guessesLeft"></span></h4>
+	   <input type="text" name="nextGuess" id="nextGuess" width="8" height="5" >
+       <input type="submit" name="go" id="go" value="Go!" width="8" onclick="newGuess()">
+   </div>	<!-- close commbox -->
+</div>	 <!-- close centerwrap -->
+	
+
+<div id="winLose" class=""><h1> X </h1>
+ </div> 
+
+
+  </body>
+</html>
